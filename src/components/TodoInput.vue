@@ -14,7 +14,8 @@ export default {
     },
     methods: {
         addTodo: function() {
-            console.log(this.newTodoItem);
+            // 저장하는 로직
+            localStorage.setItem(this.newTodoItem, this.newTodoItem); //setItem('key', 'value')로 호출 할 수 있다.(localStorage mdn 검색 참고)
             this.newTodoItem = '';
         }
     }
