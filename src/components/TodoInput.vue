@@ -1,7 +1,10 @@
 <template>
-    <div>
-        <input type="text" v-model="newTodoItem">
-        <button v-on:click="addTodo">add</button>
+    <div class="inputBox shadow">
+        <input type="text" v-model="newTodoItem" v-on:keyup.enter="addTodo">
+        <!-- <button v-on:click="addTodo">add</button> -->
+        <span class="addContainer" v-on:click="addTodo">
+            <i class="addBtn fas fa-plus" aria-hidden="true"></i>
+        </span>
     </div>
 </template>
 
@@ -15,7 +18,10 @@ export default {
     methods: {
         addTodo: function() {
             // 저장하는 로직
-            localStorage.setItem(this.newTodoItem, this.newTodoItem); //setItem('key', 'value')로 호출 할 수 있다.(localStorage mdn 검색 참고)
+            localStorage.setItem(this.newTodoItem, this.newTodoItem); 
+            this.clearInput(); // 같은 인스턴스안에 있는 메소드라서 this로 접근 가능
+        },
+        clearInput: function() {
             this.newTodoItem = '';
         }
     }
@@ -23,5 +29,31 @@ export default {
 </script>
 
 <style scoped>
-
+input:focus {
+  outline: none;
+}
+.inputBox {
+  background: white;
+  height: 50px;
+  line-height: 50px;
+  border-radius: 5px;
+}
+.inputBox input {
+  border-style: none;
+  font-size: 0.9rem;
+}
+.addContainer {
+  float: right;
+  background: linear-gradient(to right, #6478FB, #8763FB);
+  display: block;
+  width: 3rem;
+  border-radius: 0 5px 5px 0;
+}
+.addBtn {
+  color: white;
+  vertical-align: middle;
+}
+.closeModalBtn {
+  color: #42b983;
+}
 </style>
