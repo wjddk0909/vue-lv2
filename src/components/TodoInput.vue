@@ -4,7 +4,13 @@
         <span class="addContainer" v-on:click="addTodo">
             <i class="addBtn fas fa-plus" aria-hidden="true"></i>
         </span>
+        <!-- ModalBox -> vuejs.org 공식 사이트 Learn > examples에서 Modal Component 참고 -->
         <ModalBox v-if="showModal" @close="showModal = false">
+            <h3 slot="header"> <!-- ModalBox.vue에서 default로 넣어둔 부분을 여기에서 커스텀 할 수 있음 -->
+                경고!
+            </h3>
+            <!-- body에 '할 일을 입력하세요' -->
+            <!-- footer에 'copy right' -->
         </ModalBox>
     </div>
 </template>
@@ -26,7 +32,7 @@ export default {
                 this.clearInput();
             } else {
                 // input에 아무것도 입력하지 않고 addTodo 클릭 했을 때
-                // vuejs.org 공식 사이트 Learn > examples에서 Modal Component 참고
+                this.showModal = !this.showModal;
             }
         },
         clearInput: function() {
