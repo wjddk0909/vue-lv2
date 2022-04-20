@@ -8,9 +8,14 @@
         <ModalBox v-if="showModal" @close="showModal = false">
             <h3 slot="header"> <!-- ModalBox.vue에서 default로 넣어둔 부분을 여기에서 커스텀 할 수 있음 -->
                 경고!
+                <i class="closeModalBtn fas fa-times" @click="showModal = false"></i>
             </h3>
-            <!-- body에 '할 일을 입력하세요' -->
-            <!-- footer에 'copy right' -->
+            <div slot="body">
+                할 일을 입력하세요
+            </div>
+            <div slot="footer">
+                copy right
+            </div>
         </ModalBox>
     </div>
 </template>

@@ -15,15 +15,6 @@
               default body
             </slot>
           </div>
-
-          <div class="modal-footer">
-              <slot name="footer">
-                  default footer
-              </slot>
-              <button class="modal-default-button" @click="$emit('close')">
-                  OK
-              </button>
-          </div>
           
         </div>
       </div>
