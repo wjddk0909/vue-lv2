@@ -1,8 +1,9 @@
 <template>
     <div>
         <ul>
-            <li v-for="(todoItem, index) in todoItems" v-bind:key="todoItem" class="shadow"> <!-- index는 순서를 보여줌 -->
-                {{ todoItem }}
+            <li v-for="(todoItem, index) in todoItems" v-bind:key="todoItem.item" class="shadow"> <!-- index는 순서를 보여줌 -->
+                <i class="checkBtn fas fa-check" v-bind:class="{checkBtnCompleted: todoItem.completed}" v-on:click="toggleComplete(todoItem, index)"></i> <!-- v-bind로 엮어서 class값을 동적으로 바꿔줌 -->
+                <span v-bind:class="{textCompleted: todoItem.completed}">{{ todoItem.item }}</span> <!-- .item으로 객체의 item값만 뿌려줌 -->
                 <span class="removeBtn" v-on:click="removeTodo(todoItem, index)">
                     <i class="fas fa-trash-alt"></i>
                 </span>
@@ -24,6 +25,12 @@ export default {
             console.log(todoItem, index); // 할일텍스트와 index값이 찍힘
             localStorage.removeItem(todoItem); // key랑 value를 똑같이 넣어놔서 todoItem으로 지우면 됨
             this.todoItems.splice(index, 1); // localStorage를 지우고 배열도 지워줘야 브라우저에 반영됨 splice -> index번째에서 1개 지움
+        },
+        toggleComplete: function(todoItem, index) {
+            console.log(todoItem, index);
+            todoItem.completed = !todoItem.completed;
+            localStorage.removeItem(todoItem.item);
+            localStorage.setItem(todoItem.item, JSON.stringify(todoItem));
         }
     },
     created: function() { // created(인스턴스가 생성되자마자 호출되는 라이프사이클 훅), mounted, update, destroy
@@ -31,7 +38,9 @@ export default {
         if(localStorage.length > 0) {
             for (var i = 0; i < localStorage.length; i++) { // for문으로 localStorage를 가져옴
                 // console.log(localStorage.key(i));
-                this.todoItems.push(localStorage.key(i));
+                console.log(JSON.parse(localStorage.getItem(localStorage.key(i)))); // TodoInput에서 stringify로 변환해서 넣은 값을 다시 객체로 변환(JSON.parse)해서 가져옴
+                // this.todoItems.push(localStorage.key(i));
+                this.todoItems.push(JSON.parse(localStorage.getItem(localStorage.key(i)))); // 객체형식으로 리스트에 뿌려짐
             }
         }
 

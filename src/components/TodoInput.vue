@@ -17,9 +17,15 @@ export default {
     },
     methods: {
         addTodo: function() {
-            // 저장하는 로직
-            localStorage.setItem(this.newTodoItem, this.newTodoItem); 
-            this.clearInput(); // 같은 인스턴스안에 있는 메소드라서 this로 접근 가능
+            if(this.newTodoItem !== '') {   // 인풋박스에 값을 넣었을때만 실행
+                var obj = {completed: false, item: this.newTodoItem}; // item : text값, completed : boolean값을 넣어서 객체에 저장
+                // 저장하는 로직
+                // localStorage.setItem(this.newTodoItem, obj); 
+                // obj를 stringify 않고 넣으면 할일을 추가했을때 localStorage에서 확인하면 key에는 잘 들어가는데 value에 [object Object]로 들어가서 객체 안에 어떤값이 들어있는지 확인 불가능
+                localStorage.setItem(this.newTodoItem, JSON.stringify(obj)); 
+                // stringify : 객체를 string으로 변환해서 넣기때문에 객체 안에 어떤값이 있는지 확인 가능
+                this.clearInput(); // 같은 인스턴스안에 있는 메소드라서 this로 접근 가능
+            }
         },
         clearInput: function() {
             this.newTodoItem = '';
