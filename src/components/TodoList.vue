@@ -29,8 +29,8 @@ export default {
         toggleComplete: function(todoItem, index) {
             console.log(todoItem, index);
             todoItem.completed = !todoItem.completed;
-            localStorage.removeItem(todoItem.item);
-            localStorage.setItem(todoItem.item, JSON.stringify(todoItem));
+            localStorage.removeItem(todoItem.item); // localStorage에는 update api가 없어서 해당 item을 삭제했다가
+            localStorage.setItem(todoItem.item, JSON.stringify(todoItem)); // 다시 setItem해줘야함
         }
     },
     created: function() { // created(인스턴스가 생성되자마자 호출되는 라이프사이클 훅), mounted, update, destroy
