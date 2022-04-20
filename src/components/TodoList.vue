@@ -17,9 +17,7 @@ export default {
     props: ['propsdata'], // App.vue에서 v-bind:propsdata="todoItems"로 내려준 프롭스 속성 이름 propsdata
     methods: {
         removeTodo: function(todoItem, index) {
-            console.log(todoItem, index);
-            localStorage.removeItem(todoItem);
-            this.todoItems.splice(index, 1);
+            this.$emit('removeItem', todoItem, index); // removeItem을 실행해서 todoItem, index 인자를 보낸다.
         },
         toggleComplete: function(todoItem, index) {
             console.log(todoItem, index);
