@@ -4,27 +4,37 @@
         <span class="addContainer" v-on:click="addTodo">
             <i class="addBtn fas fa-plus" aria-hidden="true"></i>
         </span>
+        <ModalBox v-if="showModal" @close="showModal = false">
+        </ModalBox>
     </div>
 </template>
 
 <script>
+import ModalBox from './common/ModalBox.vue'
+
 export default {
     data: function() {
         return {
-            newTodoItem: ""
+            newTodoItem: "",
+            showModal: false,
         }
     },
     methods: {
         addTodo: function() {
             if(this.newTodoItem !== '') {
-                // this.$emit('이벤트이름', 인자1, 인자2 ...)
-                this.$emit('addTodoItem', this.newTodoItem); // addTodo가 실행되면 addTodoItem을 발생시켜서 상위 컴포넌트로 올려준다.
+                this.$emit('addTodoItem', this.newTodoItem);
                 this.clearInput();
+            } else {
+                // input에 아무것도 입력하지 않고 addTodo 클릭 했을 때
+                // vuejs.org 공식 사이트 Learn > examples에서 Modal Component 참고
             }
         },
         clearInput: function() {
             this.newTodoItem = '';
         }
+    },
+    components: {
+        ModalBox: ModalBox
     }
 };
 </script>
