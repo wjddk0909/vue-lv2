@@ -45,7 +45,7 @@ export default {
         }
     },
     components: {
-        ModalBox: ModalBox
+        ModalBox
     }
 };
 </script>
