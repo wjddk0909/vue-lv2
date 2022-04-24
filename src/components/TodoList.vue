@@ -2,7 +2,7 @@
     <div>
       <transition-group name="list" tag="ul">
           <li v-for="(todoItem, index) in this.storedTodoItems" v-bind:key="todoItem.item" class="shadow">
-              <i class="checkBtn fas fa-check" v-bind:class="{checkBtnCompleted: todoItem.completed}" v-on:click="toggleComplete(todoItem, index)"></i> 
+              <i class="checkBtn fas fa-check" v-bind:class="{checkBtnCompleted: todoItem.completed}" v-on:click="toggleComplete({todoItem, index})"></i> 
               <span v-bind:class="{textCompleted: todoItem.completed}">{{ todoItem.item }}</span>
               <span class="removeBtn" v-on:click="removeTodo({todoItem, index})">
                   <i class="fas fa-trash-alt"></i>
@@ -18,12 +18,9 @@ import { mapGetters, mapMutations } from 'vuex'
 export default {
     methods: {
         ...mapMutations({ // 헬퍼함수들은 인자를 선언하지 않아도 함수를 호출할때 인자가 있으면 그대로 들고와서 넘겨줌, 다만 기존에 removeTodo에서는 {todoItem, index} 이렇게 인자를 하나만 넘겼는데 template에서 넘기는 인자를 보면 (todoItem, index) 이렇게 두개를 넘김 -> 그래서 ({todoItem, index}) 이렇게 객체에 넣어서 하나로 만들어 줘야 함
-          removeTodo: 'removeOneItem'
+          removeTodo: 'removeOneItem',
+          toggleComplete: 'toggleItem'
         }),
-        toggleComplete(todoItem, index) {
-          // this.$emit('toggleItem', todoItem, index);
-          this.$store.commit('toggleItem', {todoItem, index})
-        }
     },
     computed: {
       // todoItems() {
