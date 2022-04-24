@@ -1,7 +1,7 @@
 <template>
     <div>
       <transition-group name="list" tag="ul">
-          <li v-for="(todoItem, index) in this.todoItems" v-bind:key="todoItem.item" class="shadow">
+          <li v-for="(todoItem, index) in this.storedTodoItems" v-bind:key="todoItem.item" class="shadow">
               <i class="checkBtn fas fa-check" v-bind:class="{checkBtnCompleted: todoItem.completed}" v-on:click="toggleComplete(todoItem, index)"></i> 
               <span v-bind:class="{textCompleted: todoItem.completed}">{{ todoItem.item }}</span>
               <span class="removeBtn" v-on:click="removeTodo(todoItem, index)">
@@ -13,6 +13,8 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
+
 export default {
     methods: {
         removeTodo(todoItem, index) {
@@ -25,9 +27,13 @@ export default {
         }
     },
     computed: {
-      todoItems() {
-        return this.$store.getters.storedTodoItems;
-      }
+      // todoItems() {
+      //   return this.$store.getters.storedTodoItems;
+      // }
+      ...mapGetters(['storedTodoItems'])
+      // ...mapGetters({ // 배열 말고 객체로도 넣을 수 있음 -> getters에서 가지고 있는 이름이랑 컴포넌트에서 사용하는 이름이 다를때, ex) 위 template for in 문에서 this.todoItems라고 사용할때
+      //   todoItems: 'storedTodoItems'
+      // })
     }
 };
 </script>
