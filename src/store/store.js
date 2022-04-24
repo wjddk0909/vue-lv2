@@ -19,6 +19,11 @@ export const store = new Vuex.Store({ // export로 const store하면 밖에서 s
     state: {
         todoItems: storage.fetch()
     },
+    getters: {
+        storedTodoItems(state) {
+            return state.todoItems;
+        }
+    },
     mutations: {
         // App.vue의 TodoInput에서 addOneItem을 호출
         // TodoInput.vue를 확인 -> addTodo()라는 메소드가 input에서 newTodoItem이라는 값을 전달해서 App.vue로 보냄
