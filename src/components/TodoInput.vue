@@ -33,7 +33,8 @@ export default {
     methods: {
         addTodo() {
             if(this.newTodoItem !== '') {
-                this.$emit('addTodoItem', this.newTodoItem);
+                // this.$emit('addTodoItem', this.newTodoItem);
+                this.$store.commit('addOneItem', this.newTodoItem); // store.js에 있는 mutations의 addOneItem을 동작시킴
                 this.clearInput();
             } else {
                 // input에 아무것도 입력하지 않고 addTodo 클릭 했을 때

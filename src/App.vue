@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <TodoHeader></TodoHeader>
-    <TodoInput v-on:addTodoItem="addOneItem"></TodoInput>
+    <TodoInput></TodoInput>
     <TodoList v-bind:propsdata="todoItems" v-on:removeItem="removeOneItem" v-on:toggleItem="toggleItem"></TodoList>
     <TodoFooter v-on:clearAll="clearAllItems"></TodoFooter>
   </div>
@@ -21,12 +21,7 @@ export default {
       todoItems: []
     }
   },
-  methods: {
-    addOneItem(todoItem) { // TodoInput에서 newTodoItem을 인자로 받아왔으니 여기에도 todoItem으로 인자를 넣어줌
-      const obj = {completed: false, item: todoItem};
-      localStorage.setItem(todoItem, JSON.stringify(obj));
-      this.todoItems.push(obj);
-    },
+  methods: { // store의 mutations와 같음
     removeOneItem(todoItem, index) {
       localStorage.removeItem(todoItem.item); // removeItem(todoItem); 으로 삭제하면 객체를 지우는거라서 localStorage에서 삭제가 안됨 todoItem.item으로 삭제해줘야 함
       this.todoItems.splice(index, 1);
